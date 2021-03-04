@@ -4,20 +4,22 @@ import com.eventmobi.matheus.marsrover.instructions.Instruction;
 import com.eventmobi.matheus.marsrover.instructions.InstructionInterpreter;
 
 public class Rover {
-    
+
     private InstructionInterpreter interpreter = new InstructionInterpreter();
     private Plateau plateau;
     private int x;
     private int y;
     private Facing facing;
     private String name;
+    private boolean tryedToMoveToForbidenPosition;
+    private boolean died;
 
     public void configurePlateau(int topX, int topY) {
         plateau = new Plateau(topX, topY);
     }
-    
-    public String transmitCurrentStatus(){
-        return name+": "+x+" "+y+" "+facing.getInputRepresentation();
+
+    public String transmitCurrentStatus() {
+        return name + ": " + x + " " + y + " " + facing.getInputRepresentation();
     }
 
     public Plateau getPlateau() {
@@ -36,14 +38,27 @@ public class Rover {
         return facing;
     }
 
+    public boolean isDied() {
+        return died;
+    }
+
+    public void setDied(boolean died) {
+        this.died = died;
+    }    
+
+    public boolean isTryedToMoveToForbidenPosition() {
+        return tryedToMoveToForbidenPosition;
+    }
+    
+
     public void configureLanding(int x, int y, Facing facing) {
-        this.facing=facing;
+        this.facing = facing;
         this.x = x;
         this.y = y;
     }
 
     public void spingLeft() {
-        switch(facing){
+        switch (facing) {
             case North:
                 facing = Facing.West;
                 break;
@@ -58,9 +73,9 @@ public class Rover {
                 break;
         }
     }
-    
+
     public void spingRight() {
-        switch(facing){
+        switch (facing) {
             case North:
                 facing = Facing.East;
                 break;
@@ -75,30 +90,51 @@ public class Rover {
                 break;
         }
     }
-    
-    public void moveAhead(){
-        switch(facing){
+
+    public void moveAhead() {
+        int newX = x;
+        int newY = y;
+        tryedToMoveToForbidenPosition=false;
+        switch (facing) {
             case North:
-                if(y<plateau.getTopY()){
-                    y++;
+                if (newY < plateau.getTopY()-1) {
+                    newY++;
+                }
+                else{
+                    tryedToMoveToForbidenPosition=true;
                 }
                 break;
             case East:
-                if(x<plateau.getTopX()){
-                    x++;
+                if (newX < plateau.getTopY()-1) {
+                    newX++;
+                }
+                else{
+                    tryedToMoveToForbidenPosition=true;
                 }
                 break;
             case South:
-                if(y>0){
-                    y--;
+                if (newY > 0) {
+                    newY--;
+                }
+                else{
+                    tryedToMoveToForbidenPosition=true;
                 }
                 break;
             case West:
-                if(x>0){
-                    x--;
+                if (newX > 0) {
+                    newX--;
+                }
+                else{
+                    tryedToMoveToForbidenPosition=true;
                 }
                 break;
         }
+        if (plateau != null && plateau.isThereAnObstacleAt(newX, newY)) {
+            tryedToMoveToForbidenPosition=true;                
+            return;
+        }
+        x = newX;
+        y = newY;
     }
 
     public void receiveSignal(String signal) {
@@ -120,6 +156,10 @@ public class Rover {
 
     public void setName(String name) {
         this.name = name;
-    }    
-    
+    }
+
+    public boolean isMissionAccomplished() {
+        return plateau.isThereAGoalAt(x, y);
+    }
+
 }

@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class RoveSignalReceptionFeaturesTest {
+public class RoverSignalReceptionFeaturesTest {
     
-    public RoveSignalReceptionFeaturesTest() {
+    public RoverSignalReceptionFeaturesTest() {
     }
     
     @BeforeClass
@@ -109,7 +109,7 @@ public class RoveSignalReceptionFeaturesTest {
          Assert.assertTrue("Instructions not correctly interpreted. Rover1.x Should be 5", rover1.getX()==1);
          Assert.assertTrue("Instructions not correctly interpreted. Rover1.y Should be 5", rover1.getY()==3);
          Assert.assertTrue("Instructions not correctly interpreted. Rover1.Facing Should be North", Facing.North.equals(rover1.getFacing()));
-         Assert.assertTrue("Instructions not correctly interpreted. Rover2.x Should be 5", rover2.getX()==5);
+         Assert.assertTrue("Instructions not correctly interpreted. Rover2.x Should be 5", rover2.getX()==4);
          Assert.assertTrue("Instructions not correctly interpreted. Rover2.y Should be 5", rover2.getY()==1);
          Assert.assertTrue("Instructions not correctly interpreted. Rover2.Facing Should be North", Facing.East.equals(rover2.getFacing()));
      }

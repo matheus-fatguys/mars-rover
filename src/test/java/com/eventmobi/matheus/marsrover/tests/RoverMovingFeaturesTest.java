@@ -1,6 +1,7 @@
 package com.eventmobi.matheus.marsrover.tests;
 
 import com.eventmobi.matheus.marsrover.domain.Facing;
+import com.eventmobi.matheus.marsrover.domain.Plateau;
 import com.eventmobi.matheus.marsrover.domain.Rover;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -76,17 +77,17 @@ public class RoverMovingFeaturesTest {
      @Test
      public void when_rover_is_facing_plateaus_border_and_is_ordered_to_move_ahead__then_it_should_ignore_the_order() {
          rover.configurePlateau(5, 5);
-         rover.configureLanding(5, 5, Facing.North);
+         rover.configureLanding(4, 4, Facing.North);
          rover.moveAhead();
          
-         Assert.assertTrue("Rover move ahead not correctly done. x coordinate should remain the same", rover.getX() == 5);
-         Assert.assertTrue("Rover move ahead not correctly decremented. y coordinate should  remain the same", rover.getY() == 5);
+         Assert.assertTrue("Rover move ahead not correctly done. x coordinate should remain the same", rover.getX() == 4);
+         Assert.assertTrue("Rover move ahead not correctly decremented. y coordinate should  remain the same", rover.getY() == 4);
          
-         rover.configureLanding(5, 5, Facing.East);
+         rover.configureLanding(4, 4, Facing.East);
          rover.moveAhead();
          
-         Assert.assertTrue("Rover move ahead not correctly done. x coordinate should remain the same", rover.getX() == 5);
-         Assert.assertTrue("Rover move ahead not correctly decremented. y coordinate should  remain the same", rover.getY() == 5);
+         Assert.assertTrue("Rover move ahead not correctly done. x coordinate should remain the same", rover.getX() == 4);
+         Assert.assertTrue("Rover move ahead not correctly decremented. y coordinate should  remain the same", rover.getY() == 4);
          
          rover.configureLanding(0, 0, Facing.South);
          rover.moveAhead();
@@ -99,5 +100,17 @@ public class RoverMovingFeaturesTest {
          
          Assert.assertTrue("Rover move ahead not correctly done. x coordinate should remain the same", rover.getX() == 0);
          Assert.assertTrue("Rover move ahead not correctly decremented. y coordinate should  remain the same", rover.getY() == 0);
+     }
+     
+     @Test
+     public void when_rover_is_facing_an_obstacle_and_is_ordered_to_move_ahead_then_it_should_ignore_the_order() {
+         rover.configurePlateau(5, 5);
+         rover.configureLanding(0, 0, Facing.North);
+         Plateau  plateau = rover.getPlateau();
+         plateau.addObstacle(0, 1);
+         rover.moveAhead();
+         
+         Assert.assertTrue("Rover move ahead not correctly done. x coordinate should remain the same", rover.getX() == 0);
+         Assert.assertTrue("Rover move ahead not correctly done. y coordinate should  remain the same", rover.getY() == 0);
      }
 }
