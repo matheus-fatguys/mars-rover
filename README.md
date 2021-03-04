@@ -1,4 +1,13 @@
 # mars-rover
+This project was created as a screening process challenge
+But I htought it so creative and interesting that a I decided
+to improve it with a reinforcement learning agent and a simple GUI
+
+This project uses RL4J and DL4J
+
+
+
+
 Eventmobi's Mars Rover Programming Assesment
 
 This application simulates rovers managed by NASA in Mars.
