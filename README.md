@@ -5,7 +5,9 @@ to improve it with a reinforcement learning agent and a simple GUI
 
 This project uses RL4J and DL4J
 
-
+NEXT STEPS: 
+1 - INTRODUCE GENETIC ALGORITHMS TO PARAMETER TUNING 
+2 - HAVE 2 ROVERS COMPETING ON THE SAME SCNEARIUM
 
 
 Eventmobi's Mars Rover Programming Assesment
